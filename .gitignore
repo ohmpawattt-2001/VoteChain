@@ -1,0 +1,36 @@
+# Node & tooling
+node_modules/
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+.cache/
+dist/
+build/
+artifacts/
+cache/
+coverage/
+.env
+.env.*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+logs/
+*.log
+
+# Local secrets (must never be committed)
+github_accounts.csv
+project_description.txt
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Hardhat
+.typechain/
+coverage.json
