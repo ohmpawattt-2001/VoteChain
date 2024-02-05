@@ -96,15 +96,17 @@ function datesBetween(start, end, n) {
   return Array.from({ length: n }, (_, i) => new Date(s + i * step));
 }
 
-function writeDoc(phase, i) {
+function writeDoc(phase, i, suffix = '') {
   const dir = path.join('docs', 'notes', phase);
   fs.mkdirSync(dir, { recursive: true });
-  const file = path.join(dir, 'note-' + String(i + 1).padStart(3, '0') + '.md');
+  const base = 'note-' + String(i + 1).padStart(3, '0');
+  const file = path.join(dir, suffix ? `${base}-${suffix}.md` : `${base}.md`);
   const body =
     '# ' +
     phase +
     ' design note ' +
     (i + 1) +
+    (suffix ? ' (' + suffix + ')' : '') +
     '\n\n- Topic: ' +
     randomPick(topics()) +
     '\n- Rationale: iteratively refining VoteChain design and implementation details.\n';
@@ -139,11 +141,17 @@ function run(perPhase, dry) {
     }
   }
 
+  if (dry) {
+    console.log('dry run complete, no top-up commits performed.');
+    return;
+  }
+
   // ensure per-account minimum 16 commits
   for (const a of accounts) {
     while (counts.get(a.username) < 16) {
       const now = isoLocal(new Date('2025-02-05T10:00:00+08:00'));
-      writeDoc('docs', counts.get(a.username));
+      const idx = counts.get(a.username);
+      writeDoc('docs', idx, a.username);
       const msg = 'docs: docs top-up to satisfy per-account minimum';
       sh('git config user.name ' + JSON.stringify(a.username));
       sh('git config user.email ' + JSON.stringify(a.email));
