@@ -1,4 +1,4 @@
 # docs design note 4
 
-- Topic: Ethers event subscriptions
+- Topic: whitelist access control
 - Rationale: iteratively refining VoteChain design and implementation details.
