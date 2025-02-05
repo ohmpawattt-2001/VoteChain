@@ -1,4 +1,4 @@
 # docs design note 1
 
-- Topic: multi-chain deployment
+- Topic: reentrancy protection with OpenZeppelin
 - Rationale: iteratively refining VoteChain design and implementation details.
